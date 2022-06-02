@@ -1,0 +1,11 @@
+{
+  "name": "ladoosingh",
+  "version": "1.0.0",
+  "description": "Request inspector",
+  "main": "index.js",
+  "scripts": {
+    
+  },
+  "author": "Dimas Ananda - traper",
+  "license": "ISC"
+}
