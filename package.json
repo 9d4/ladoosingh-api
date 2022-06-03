@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Request inspector",
   "main": "index.js",
-  "scripts": {
-    
-  },
+  "scripts": {},
   "author": "Dimas Ananda - traper",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^20.2.2"
+  }
 }
