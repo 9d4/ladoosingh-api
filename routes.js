@@ -12,6 +12,14 @@ const routes = () => {
                 return "Welcome!";
             },
         },
+        {
+            path: '/{any*}',
+            method: '*',
+            handler: (req, res) => {
+                // send 404
+                return res.response({error: 'Not found'}).code(404);
+            }
+        }
     ];
 }
 
