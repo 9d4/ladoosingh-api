@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Request inspector",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "jest"
+  },
   "author": "Dimas Ananda - traper",
   "license": "ISC",
   "dependencies": {
