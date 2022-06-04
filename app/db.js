@@ -19,6 +19,11 @@ const setDB = (sql) => {
   DB = { ...sql };
 };
 
+/**
+ * Get the global DB instance
+ *
+ * @returns {import{'sequelize'.Sequelize}}
+ */
 const getDB = () => DB;
 
 module.exports = { connectDB, setDB, getDB };
