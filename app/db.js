@@ -3,7 +3,9 @@ const { Sequelize } = require('sequelize');
 let DB;
 
 const connectDB = async (dbUri) => {
-  const sql = new Sequelize(dbUri);
+  const sql = new Sequelize(dbUri, {
+    logging: process.env.NODE_ENV === 'development',
+  });
 
   await sql.authenticate();
 
