@@ -1,18 +1,19 @@
 const { nanoid } = require('nanoid');
-const Link = require('../app/database/models/link');
-const { connectDB } = require('../app/db');
+const { getModels, init } = require('../app/database/models/index');
 
 describe('Model: Link', () => {
   test('create new Link', async () => {
-    const sql = await connectDB(process.env.DB_URI_TEST); 
-    const links = [{linkId: nanoid()}, {linkId: nanoid()}, {linkId: nanoid()}];
+    await init();
 
-    const linkModel = Link(sql);
+    const id = nanoid();
+    const a = await getModels()['link'].create({
+      linkId: id,
+    });
 
-    for (const link of links) {
-      const result = await linkModel.create(link);
-      expect(result).toBeInstanceOf(linkModel);
-      await result.destroy();
-    }
-  })
+    // find the created link
+    const b = await getModels()['link'].findOne({where: {linkId: id}});
+    expect(b).toBeTruthy();
+
+    a.destroy();
+  });
 });

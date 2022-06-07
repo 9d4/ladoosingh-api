@@ -2,19 +2,7 @@
 const { Model, DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  class Link extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // this has many histories
-      Link.hasMany(models.History, {
-        foreignKey: 'linkId',
-      });
-    }
-  }
+  class Link extends Model {}
 
   Link.init(
     {
@@ -26,9 +14,13 @@ module.exports = (sequelize) => {
     },
     {
       sequelize,
-      modelName: 'Link',
+      modelName: 'link',
     }
   );
+
+  Link.associate = (models) => {
+    Link.hasMany(models.history);
+  }
 
   return Link;
 };
