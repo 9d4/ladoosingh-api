@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
-const { connectDB, setDB } = require('./app/db');
+const { init: initDB } = require('./app/database/models');
 const routes = require('./routes');
 
 const init = async () => {
@@ -13,7 +13,7 @@ const init = async () => {
   server.route(routes);
 
   try {
-    setDB(await connectDB(process.env.DB_URI));
+    await initDB();
     await server.start();
     process.stdout.write(`Listening ${server.info.uri}\n`);
   } catch (err) {
