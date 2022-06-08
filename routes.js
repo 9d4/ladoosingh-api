@@ -1,4 +1,4 @@
-const { createNewLink } = require('./app/link/handler');
+const { createNewLink, linkHook } = require('./app/link/handler');
 
 /**
  * Contains all the routes for the application.
@@ -15,6 +15,11 @@ const routes = () => [
     path: '/links',
     method: 'POST',
     handler: createNewLink,
+  },
+  {
+    path: '/l/{linkId}',
+    method: '*',
+    handler: linkHook,
   },
   {
     path: '/{any*}',

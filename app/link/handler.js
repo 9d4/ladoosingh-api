@@ -31,4 +31,40 @@ const createNewLink = async (req, res) => {
   }
 };
 
-module.exports = { createNewLink };
+class HookError extends Error {
+  constructor(message = 'Hook not found', code = 404) {
+    super(message);
+    this.name = 'HookError';
+    this.code = code;
+  }
+}
+
+/**
+ * Link hook where the request will be inspected.
+ *
+ * @param {import('@hapi/hapi').Request} req
+ * @param {import('@hapi/hapi').ResponseToolkit} res
+ */
+const linkHook = async (req, res) => {
+  try {
+    const link = await getModels().link.findOne({
+      where: {
+        linkId: req.params.linkId,
+      },
+    });
+
+    if (link === null) {
+      throw new HookError();
+    }
+  } catch (err) {
+    if (err instanceof HookError) {
+      return res.response({ error: err.name, message: err.message }).code(err.code);
+    }
+
+    return res.response({ error: 'Internal Server Error' }).code(500);
+  }
+
+  return res.response('OK').code(200);
+};
+
+module.exports = { createNewLink, linkHook };
