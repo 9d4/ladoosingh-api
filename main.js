@@ -1,7 +1,9 @@
 require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
+const Nes = require('@hapi/nes');
 const { init: initDB } = require('./app/database/models');
+const { initLinkWS } = require('./app/link/ws');
 const routes = require('./routes');
 
 const init = async () => {
@@ -11,6 +13,8 @@ const init = async () => {
   });
 
   server.route(routes);
+  await server.register(Nes);
+  initLinkWS(server);
 
   try {
     await initDB();

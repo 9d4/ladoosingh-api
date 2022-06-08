@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@hapi/hapi': ^20.2.2
+  '@hapi/nes': ^12.0.4
   dotenv: ^16.0.1
   eslint: ^7.32.0
   eslint-config-airbnb-base: ^15.0.0
@@ -14,6 +15,7 @@ specifiers:
 
 dependencies:
   '@hapi/hapi': 20.2.2
+  '@hapi/nes': 12.0.4
   dotenv: 16.0.1
   nanoid: 3.3.4
   pg: 8.7.3
@@ -499,6 +501,24 @@ packages:
     dependencies:
       '@hapi/hoek': 9.3.0
       mime-db: 1.52.0
+    dev: false
+
+  /@hapi/nes/12.0.4:
+    resolution: {integrity: sha512-gM+XMVbfdyjN5r+k13kSfMIaoe/qy24RSzWNDbdWiuDDWk4hYxNy+gLwmVmQ4njj5X3Wpbl/URxULyRuvHU+VA==}
+    engines: {node: '>=12.0.0'}
+    dependencies:
+      '@hapi/boom': 9.1.4
+      '@hapi/bounce': 2.0.0
+      '@hapi/call': 8.0.1
+      '@hapi/cryptiles': 5.1.0
+      '@hapi/hoek': 9.3.0
+      '@hapi/iron': 6.0.0
+      '@hapi/teamwork': 5.1.1
+      '@hapi/validate': 1.1.3
+      ws: 7.5.8
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
     dev: false
 
   /@hapi/nigel/4.0.2:
@@ -3534,6 +3554,19 @@ packages:
       imurmurhash: 0.1.4
       signal-exit: 3.0.7
     dev: true
+
+  /ws/7.5.8:
+    resolution: {integrity: sha512-ri1Id1WinAX5Jqn9HejiGb8crfRio0Qgu8+MtL36rlTA6RLsMdWt1Az/19A2Qij6uSHUMphEFaTKa4WG+UNHNw==}
+    engines: {node: '>=8.3.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dev: false
 
   /xtend/4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
