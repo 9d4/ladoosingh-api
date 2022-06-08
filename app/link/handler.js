@@ -56,6 +56,20 @@ const linkHook = async (req, res) => {
     if (link === null) {
       throw new HookError();
     }
+
+    const reqData = {
+      method: req.method,
+      path: req.raw.req.url,
+      http: req.raw.req.httpVersion,
+      header: req.raw.req.headers,
+      info: req.info,
+      body: req.payload,
+    };
+
+    await getModels().history.create({
+      linkId: link.id,
+      data: reqData,
+    });
   } catch (err) {
     if (err instanceof HookError) {
       return res.response({ error: err.name, message: err.message }).code(err.code);
