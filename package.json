@@ -4,6 +4,7 @@
   "description": "Request inspector",
   "main": "index.js",
   "scripts": {
+    "start": "node main.js",
     "test": "NODE_ENV=test jest --setup-files dotenv/config",
     "sql": "sequelize --config=./config/config.js --migrations-path=./app/database/migrations --models-path=./app/database/models --seeders-path=./app/database/seeders"
   },
