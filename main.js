@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
 const Nes = require('@hapi/nes');
+const http = require('http');
 const { init: initDB } = require('./app/database/models');
 const { initLinkWS } = require('./app/link/ws');
 const routes = require('./routes');
@@ -25,4 +26,17 @@ const init = async () => {
   }
 };
 
-init();
+const selfPing = () => {
+  try {
+    http.get(`${process.env.APP_URL}`, () => undefined);
+    return null;
+  } catch (e) { return undefined; }
+};
+
+init().then(() => {
+  if (process.env.NODE_ENV === 'production') {
+    setInterval(() => {
+      selfPing();
+    }, 5000);
+  }
+});
