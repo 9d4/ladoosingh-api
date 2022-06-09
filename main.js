@@ -33,7 +33,7 @@ const selfPing = () => {
 };
 
 init().then(() => {
-  const ival = 1000 * 60 * 15; // 15 minutes
+  const ival = 1000 * 60 * 5; // 5 minutes
 
   if (process.env.NODE_ENV === 'production') {
     setInterval(() => {
