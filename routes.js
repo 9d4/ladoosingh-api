@@ -7,6 +7,11 @@ const { createNewLink, linkHook } = require('./app/link/handler');
  */
 const routes = () => [
   {
+    path: '/ping',
+    method: 'GET',
+    handler: (req, res) => res.response('pong').code(200),
+  },
+  {
     path: '/',
     method: 'GET',
     handler: () => 'Welcome!',

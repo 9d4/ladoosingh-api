@@ -28,15 +28,16 @@ const init = async () => {
 
 const selfPing = () => {
   try {
-    http.get(`${process.env.APP_URL}`, () => undefined);
-    return null;
-  } catch (e) { return undefined; }
+    http.get(`${process.env.APP_URL}/ping`, () => undefined);
+  } catch (e) { process.stdout.write(`${e.stack}\n`); }
 };
 
 init().then(() => {
+  const ival = 1000 * 60 * 15; // 15 minutes
+
   if (process.env.NODE_ENV === 'production') {
     setInterval(() => {
       selfPing();
-    }, 5000);
+    }, ival);
   }
 });
