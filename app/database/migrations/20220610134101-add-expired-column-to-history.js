@@ -8,6 +8,11 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
+    // alter table add expired_at column
+    await queryInterface.addColumn('histories', 'expiredAt', {
+      type: Sequelize.DATE,
+      allowNull: true,
+    })
   },
 
   async down (queryInterface, Sequelize) {
