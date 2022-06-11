@@ -9,7 +9,7 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     // alter table add expired_at column
-    await queryInterface.addColumn('histories', 'expiredAt', {
+    await queryInterface.addColumn('links', 'expiredAt', {
       type: Sequelize.DATE,
       allowNull: true,
     })

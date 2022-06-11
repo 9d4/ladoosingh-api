@@ -22,5 +22,10 @@ module.exports = (sequelize) => {
     Link.hasMany(models.history);
   }
 
+  Link.beforeCreate((instance, options) => {
+    const after = 1000 * 60 * 60 * 24 * 3; // 3 days
+    instance.expiredAt = new Date(Date.now() + after);
+  });
+
   return Link;
 };
