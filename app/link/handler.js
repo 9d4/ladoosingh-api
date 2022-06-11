@@ -57,6 +57,11 @@ const linkHook = async (req, res) => {
       throw new HookError();
     }
 
+    if (new Date(link.expiredAt) < new Date()) {
+      link.destroy();
+      throw new HookError();
+    }
+
     const reqData = {
       method: req.method,
       path: req.raw.req.url,
