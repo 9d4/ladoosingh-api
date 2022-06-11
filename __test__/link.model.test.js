@@ -14,6 +14,12 @@ describe('Model: Link', () => {
     const b = await getModels()['link'].findOne({where: {linkId: id}});
     expect(b).toBeTruthy();
 
+    // link createdAt should be 3 days older than expiredAt
+    const createdAt = new Date(b.createdAt);
+    const expiredAt = new Date(b.expiredAt);
+    const after = 1000 * 60 * 60 * 24 * 3; // 3 days
+    expect(Math.floor((expiredAt - createdAt) / 10)).toBe(Math.floor(after / 10));
+
     a.destroy();
   });
 });
