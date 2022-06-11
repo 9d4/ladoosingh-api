@@ -1,5 +1,6 @@
 const { customAlphabet } = require('nanoid');
 const { getModels } = require('../database/models');
+const { sendMessage } = require('./ws');
 
 /**
  * Helper to create linkId
@@ -70,6 +71,8 @@ const linkHook = async (req, res) => {
       info: req.info,
       body: req.payload,
     };
+
+    sendMessage(link.linkId, reqData);
 
     await getModels().history.create({
       linkId: link.id,
