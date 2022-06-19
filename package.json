@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node main.js",
     "test": "NODE_ENV=test jest --setup-files dotenv/config",
-    "sql": "sequelize --config=./config/config.js --migrations-path=./app/database/migrations --models-path=./app/database/models --seeders-path=./app/database/seeders"
+    "sql": "sequelize --config=./config/config.js --migrations-path=./app/database/migrations --models-path=./app/database/models --seeders-path=./app/database/seeders",
+    "sql-dev": "npm run sql -- --env development",
+    "sql-test": "npm run sql -- --env test",
+    "sql-prod": "npm run sql -- --env production"
   },
   "author": "Dimas Ananda - traper",
   "license": "ISC",
