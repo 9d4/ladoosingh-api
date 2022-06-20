@@ -1,6 +1,8 @@
 const { customAlphabet } = require('nanoid');
 const { getModels } = require('../database/models');
 const { sendMessage } = require('./ws');
+const HookError = require('../types/HookError');
+const LinkError = require('../types/LinkError');
 
 /**
  * Helper to create linkId
@@ -32,13 +34,50 @@ const createNewLink = async (req, res) => {
   }
 };
 
-class HookError extends Error {
-  constructor(message = 'Hook not found', code = 404) {
-    super(message);
-    this.name = 'HookError';
-    this.code = code;
+/**
+ * Retrieve hook hits history.
+ *
+ * @param {import('@hapi/hapi').Request} req
+ * @param {import('@hapi/hapi').ResponseToolkit} h
+ */
+const getLinkHistory = async (req, h) => {
+  const { linkId } = req.params;
+
+  try {
+    const Link = await getModels().link.findOne({
+      where: {
+        linkId,
+      },
+    });
+
+    if (Link === null) {
+      throw new LinkError();
+    }
+
+    const history = await getModels().history.findAll({
+      where: {
+        linkId: Link.id,
+      },
+      order: [['updatedAt', 'DESC']],
+    });
+
+    // remove key 'id' from history
+    // only take these keys: 'data', 'updatedAt', 'createdAt'
+    const historyData = history.map((item) => ({
+      data: item.data,
+      updatedAt: item.updatedAt,
+      createdAt: item.createdAt,
+    }));
+
+    return h.response(historyData).code(200);
+  } catch (e) {
+    if (e instanceof LinkError) {
+      return h.response(e.message).code(e.code);
+    }
+
+    return h.response({ error: 'Internal Server Error' }).code(500);
   }
-}
+};
 
 /**
  * Link hook where the request will be inspected.
@@ -89,4 +128,4 @@ const linkHook = async (req, res) => {
   return res.response('OK').code(200);
 };
 
-module.exports = { createNewLink, linkHook };
+module.exports = { createNewLink, getLinkHistory, linkHook };

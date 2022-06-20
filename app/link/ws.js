@@ -24,7 +24,7 @@ const initLinkWS = (s) => {
 
 /**
  * Send message to subscribers who subscribed to the '/ws/{linkId}' route
- * @param {*} linkId
+ * @param {String} linkId
  * @param {*} message
  * @param {import('@hapi/hapi').Server} server
  */
