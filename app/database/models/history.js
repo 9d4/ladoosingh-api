@@ -8,6 +8,15 @@ module.exports = (sequelize) => {
       type: DataTypes.JSON,
     },
   }, { sequelize, modelName: 'history' });
+  
+  History.getHistoryByLinkId = function (linkId) {
+    return this.findAll({
+      where: {
+        linkId,
+      },
+      order: [['updatedAt', 'DESC']],
+    });
+  }
 
   return History;
 };

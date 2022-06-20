@@ -54,12 +54,7 @@ const getLinkHistory = async (req, h) => {
       throw new LinkError();
     }
 
-    const history = await getModels().history.findAll({
-      where: {
-        linkId: Link.id,
-      },
-      order: [['updatedAt', 'DESC']],
-    });
+    const history = await getModels().history.getHistoryByLinkId(Link.id);
 
     // remove key 'id' from history
     // only take these keys: 'data', 'updatedAt', 'createdAt'
